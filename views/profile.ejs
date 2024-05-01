@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile page</title>
+</head>
+<body>
+    
+    <h1> profile page</h1>
+    <a href="/user/logout">logout</a>
+    <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
+    <p>Name: <%=user.name %></p>
+    <p>Email: <%=user.email %></p>
+    <form action="/user/update/<%=user.id %>" enctype="multipart/form-data" method="post">
+        <input type="text" placeholder="Enter name" name="name" value="<%=user.name %>">
+        <input type="email" placeholder="Enter email" name="email" value="<%= user.email %>">
+        <input type="file" id="file" name="avatar" placeholder="Profile picture">
+        <input type="submit" placeholder="Update">
+    </form>
+    <br>
+    <br>
+    <form action="/post/content"  method="post">
+        <input type="text" id="content" name="content">
+        <input type="submit" placeholder="submit">
+    </form>
+    <ul>
+        <% for(post of post_list){ %>
+           <li>
+            <p>
+                <% if(locals.user && locals.user.id == post.user.id){ %>
+            <a href="/post/deletepost/<%=post.id %>">X</a>
+            <% } %>
+            <%= post.content %>
+            <samll><%=post.user.name  %></samll>
+            <small>
+                <% if (locals.user){ %>
+                    <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                            <%= post.likes.length %> Likes
+                    </a>
+                <% }else{ %>
+                    <%= post.likes.length %> Likes
+                <% } %>
+            </small>
+        </p>
+            <form action="/comment/create" method="post">
+                <input type="text" placeholder="Enter comment" name="comment" required>
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <input type="submit" placeholder="Add comment">
+                <% for(comment of post.comments){ %>
+                    <div>
+                        <% if(locals.user && locals.user.id == comment.user.id){ %>
+                            <a href="/comment/deletecomment/<%=comment.id %>">X</a>
+                            <% } %>
+                            <p><%=comment.comment %></p>
+                            <p><%= comment.user.name %></p>
+                            <small>
+                                <% if (locals.user){ %>
+                                    <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                                            <%= comment.likes.length %> Likes
+                                    </a>
+                                <% }else{ %>
+                                    <%= comment.likes.length %> Likes
+                                <% } %>
+                            </small>
+                    </div>
+                <%}%>
+            </form>
+            <br>
+            <br>
+           </li>
+            <%}%>  
+            <section id="alluser">
+                <h1>All Users</h1>
+                <ul>
+                <% for(alluser of alluser){ %>
+                    <li>
+                        <p><%=alluser.name %>
+                        <%=alluser.email %></p>
+                        <% } %>
+                    </li>
+                    </ul>
+            </section>  
+            
+            <script src="/js/home_post_comments.js" ></script>
+            <script src="/js/home_posts.js"></script>
+            
+            <!-- CHANGE :: import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
+            <script src="js/toggle_likes.js"></script>
+            <script>
+                $('.toggle-like-button').each(function(){
+                    let self = this;
+                    let toggleLike = new ToggleLike(self);
+                });
+            </script>
+
+            
+</body>
+</html>
