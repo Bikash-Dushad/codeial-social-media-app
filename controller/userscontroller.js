@@ -141,3 +141,10 @@ module.exports.logout = async (req, res)=>{
         return res.redirect('back')
     }
 }
+
+// module.exports.allusers = async (req, res)=>{
+//             var alluser = await User.find({})
+//                 return res.render('all',{
+//                     alluser: alluser
+//             })
+// }

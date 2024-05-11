@@ -10,7 +10,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
-
+    <script src="https://kit.fontawesome.com/f383b6eabf.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>profile page</title>
@@ -20,11 +20,12 @@
     <header>
         <nav>
             <h1> profile page</h1>
+            <a href=""><h1> All Users</h1></a>
         </nav>
         <div id="user-details">
             <div id="profile-n-name">
                 <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
-                <p><%=user.name %></p>
+                <h1><%=user.name %></h1>
                 <!-- <p>Email: <%=user.email %> </p> -->
             </div>
             <a class="logout" href="/user/logout">logout</a>
@@ -43,83 +44,96 @@
 
     <br>
     <br>
-
-    <main>
-
-        <form action="/post/content" method="post">
-            <input type="text" id="content" name="content">
-            <input type="submit" placeholder="submit">
-        </form>
+<main>
+    <section>
+        
+        <div class="form-container">
+            <form action="/post/content" method="post">
+                <input type="text" id="content" name="content" placeholder="Enter content...">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
         <ul>
             <% for(post of post_list){ %>
                 <li>
-                    <p>
-                        <% if(locals.user && locals.user.id==post.user.id){ %>
-                            <a href="/post/deletepost/<%=post.id %>">X</a>
-                            <% } %>
-                                <%= post.content %>
-                                    <samll>
-                                        <%=post.user.name %>
-                                    </samll>
-                                    <small>
-                                        <% if (locals.user){ %>
-                                            <a class="toggle-like-button" data-likes="<%= post.likes.length %>"
-                                                href="/likes/toggle/?id=<%=post._id%>&type=Post">
-                                                <%= post.likes.length %> Likes
-                                            </a>
-                                            <% }else{ %>
-                                                <%= post.likes.length %> Likes
-                                                    <% } %>
-                                    </small>
-                    </p>
-                    <form action="/comment/create" method="post">
-                        <input type="text" placeholder="Enter comment" name="comment" required>
-                        <input type="hidden" name="post" value="<%= post._id %>">
-                        <input type="submit" placeholder="Add comment">
-                        <% for(comment of post.comments){ %>
-                            <div>
-                                <% if(locals.user && locals.user.id==comment.user.id){ %>
-                                    <a href="/comment/deletecomment/<%=comment.id %>">X</a>
-                                    <% } %>
-                                        <p>
-                                            <%=comment.comment %>
-                                        </p>
-                                        <p>
-                                            <%= comment.user.name %>
-                                        </p>
-                                        <small>
-                                            <% if (locals.user){ %>
-                                                <a class="toggle-like-button" data-likes="<%= comment.likes.length %>"
-                                                    href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
-                                                    <%= comment.likes.length %> Likes
-                                                </a>
-                                                <% }else{ %>
-                                                    <%= comment.likes.length %> Likes
-                                                        <% } %>
-                                        </small>
-                            </div>
-                            <%}%>
-                    </form>
+                    <div class="content-to-commentform">
+                        <div id="content-n-delete">
+                            <h1><%= post.content %></h1>
+                            <small>
+                                <% if(locals.user && locals.user.id==post.user.id){ %>
+                                    <a href="/post/deletepost/<%=post.id %>">X</a>
+                                <% } %>
+                            </small>
+                        </div>
+                        <samll><%=post.user.name %></samll>
+                        <br>
+                        <img src="/images/profile.png" alt="img user se lena hai " style="height: 15%; width: 15%;">
+                        <br>
+                        <div id="like-n-comment">
+                            <small>
+                                <% if (locals.user){ %>
+                                    <a class="toggle-like-button" data-likes="<%= post.likes.length %>"
+                                        href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                                        <%= post.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                    </a>
+                                    <% }else{ %>
+                                        <%= post.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                            <% } %>
+                            </small>
+        
+                            <form action="/comment/create" method="post">
+                                <input type="text" placeholder="Enter comment" name="comment" required>
+                                <input type="hidden" name="post" value="<%= post._id %>">
+                                <input type="submit" placeholder="Add comment">
+                    </div>
+                            <% for(comment of post.comments){ %>
+                                <div>
+                                    <% if(locals.user && locals.user.id==comment.user.id){ %>
+                                        <a href="/comment/deletecomment/<%=comment.id %>">X</a>
+                                        <% } %>
+                                            <p>
+                                                <%=comment.comment %>
+                                            </p>
+                                            <small id="commentator-name">
+                                                <%= comment.user.name %>
+                                            </small>
+                                            <small>
+                                                <% if (locals.user){ %>
+                                                    <a class="toggle-like-button" data-likes="<%= comment.likes.length %>"
+                                                        href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                                                        <%= comment.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                                    </a>
+                                                    <% }else{ %>
+                                                        <%= comment.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                                            <% } %>
+                                            </small>
+                                </div>
+                                <%}%>
+                        </form>
+                    </div>
                     <br>
                     <br>
                 </li>
-                <%}%>
-                    <section id="alluser">
+            <%}%>
+                
+     </section>
+
+                    <aside id="alluser">
                         <h1>All Users</h1>
                         <ul>
                             <% for(alluser of alluser){ %>
                                 <li>
-                                    <p>
+                                    <p id="all-users">
+                                        <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
                                         <%=alluser.name %>
-                                            <%=alluser.email %>
+                                        <!-- <%=alluser.email %> -->
                                     </p>
-                                    <% } %>
                                 </li>
-                    </section>
-        </ul>
-    </main>
-
-
+                            <% } %>
+                        </ul>
+                    </aside>
+</main>
     <script src="/js/home_post_comments.js"></script>
     <script src="/js/home_posts.js"></script>
 
@@ -130,9 +144,10 @@
             let self = this;
             let toggleLike = new ToggleLike(self);
         });
+
+        const usernames = alluser.map(user => user.name);
+        localStorage.setItem('usernames', JSON.stringify(usernames));
     </script>
-
-
 </body>
 
 </html>

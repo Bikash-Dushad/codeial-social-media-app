@@ -55,3 +55,63 @@ p {
 .logout:hover {
     background-color: #263238;
 }
+
+main {
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+section{
+    background-color: aqua;
+    width: 70%;
+}
+aside {
+    background-color: #ccc;
+    width: 30%;
+}
+
+/* Style the form container */
+.form-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e60e0e;
+}
+/* Style the input field */
+#content {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style the submit button */
+.form-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    /* Blue color */
+    color: #fff;
+    /* White text color */
+    cursor: pointer;
+}
+
+/* Change submit button color on hover */
+.form-container input[type="submit"]:hover {
+    background-color: #0056b3;
+    /* Darker blue color */
+}
+
+.content-to-commentform{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
