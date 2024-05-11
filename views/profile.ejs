@@ -20,7 +20,6 @@
     <header>
         <nav>
             <h1> profile page</h1>
-            <a href=""><h1> All Users</h1></a>
         </nav>
         <div id="user-details">
             <div id="profile-n-name">
@@ -38,7 +37,7 @@
             <input type="text" placeholder="Enter name" name="name" value="<%=user.name %>">
             <input type="email" placeholder="Enter email" name="email" value="<%= user.email %>">
             <input type="file" id="file" name="avatar" placeholder="Profile picture">
-            <input type="submit" placeholder="Update">
+            <input type="submit" value="Update">
         </form>
     </section>
 
@@ -50,7 +49,7 @@
         <div class="form-container">
             <form action="/post/content" method="post">
                 <input type="text" id="content" name="content" placeholder="Enter content...">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Post">
             </form>
         </div>
         
@@ -58,7 +57,7 @@
             <% for(post of post_list){ %>
                 <li>
                     <div class="content-to-commentform">
-                        <div id="content-n-delete">
+                        <div class="content-n-delete">
                             <h1><%= post.content %></h1>
                             <small>
                                 <% if(locals.user && locals.user.id==post.user.id){ %>
@@ -66,31 +65,31 @@
                                 <% } %>
                             </small>
                         </div>
-                        <samll><%=post.user.name %></samll>
+                        <span class="user-name">by <%=post.user.name %></span>
                         <br>
                         <img src="/images/profile.png" alt="img user se lena hai " style="height: 15%; width: 15%;">
                         <br>
-                        <div id="like-n-comment">
+                        <div class="like-n-comment">
                             <small>
                                 <% if (locals.user){ %>
                                     <a class="toggle-like-button" data-likes="<%= post.likes.length %>"
                                         href="/likes/toggle/?id=<%=post._id%>&type=Post">
-                                        <%= post.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                        <%= post.likes.length %> <i class="fa-regular fa-thumbs-up"></i>
                                     </a>
                                     <% }else{ %>
-                                        <%= post.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                        <%= post.likes.length %> <i class="fa-regular fa-thumbs-up"></i>
                                             <% } %>
                             </small>
         
                             <form action="/comment/create" method="post">
                                 <input type="text" placeholder="Enter comment" name="comment" required>
                                 <input type="hidden" name="post" value="<%= post._id %>">
-                                <input type="submit" placeholder="Add comment">
-                    </div>
+                                <input type="submit" value="comment">
+                        </div>
                             <% for(comment of post.comments){ %>
-                                <div>
-                                    <% if(locals.user && locals.user.id==comment.user.id){ %>
-                                        <a href="/comment/deletecomment/<%=comment.id %>">X</a>
+                                <div class="comments">
+                                    <% if(locals.user && locals.user.id==comment.user._id){ %>
+                                        <a class="delete-comment" href="/comment/deletecomment/<%=comment.id %>">X</a>
                                         <% } %>
                                             <p>
                                                 <%=comment.comment %>
@@ -100,12 +99,12 @@
                                             </small>
                                             <small>
                                                 <% if (locals.user){ %>
-                                                    <a class="toggle-like-button" data-likes="<%= comment.likes.length %>"
+                                                    <a class="comment-like-button" data-likes="<%= comment.likes.length %>"
                                                         href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
-                                                        <%= comment.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                                        <%= comment.likes.length %> <i class="fa-regular fa-thumbs-up"></i>
                                                     </a>
                                                     <% }else{ %>
-                                                        <%= comment.likes.length %><i class="fa-regular fa-thumbs-up"></i>
+                                                        <%= comment.likes.length %> <i class="fa-regular fa-thumbs-up"></i>
                                                             <% } %>
                                             </small>
                                 </div>
@@ -124,11 +123,11 @@
                         <ul>
                             <% for(alluser of alluser){ %>
                                 <li>
-                                    <p id="all-users">
+                                    <h1 id="all-users">
                                         <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
                                         <%=alluser.name %>
                                         <!-- <%=alluser.email %> -->
-                                    </p>
+                                    </h1>
                                 </li>
                             <% } %>
                         </ul>
