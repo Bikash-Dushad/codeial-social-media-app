@@ -107,29 +107,6 @@ module.exports.destroySession = function(req, res){
     return res.redirect('/');
 }
 
-module.exports.update = async (req, res)=>{
-    try {
-        var user = await User.findById(req.params.id);
-        await User.uploadedAvatar(req, res, async function(err){
-            if(err){
-                console.log("multer error", err)
-            }
-            user.name = req.body.name;
-            user.email = req.body.email;
-            if(req.file){
-                if(user.file){
-                    fs.unlinkSync(path.join(__dirname, '..', user.avatar))
-                }
-                console.log(req.file)
-                user.avatar = User.avatarPath+ '/' + req.file.filename
-            }
-            await user.save();
-            return res.redirect("back")
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 module.exports.logout = async (req, res)=>{
     if(req.cookies.user_id){
@@ -142,9 +119,37 @@ module.exports.logout = async (req, res)=>{
     }
 }
 
-// module.exports.allusers = async (req, res)=>{
-//             var alluser = await User.find({})
-//                 return res.render('all',{
-//                     alluser: alluser
-//             })
-// }
+module.exports.updatePage = async (req, res)=>{
+    if(req.cookies.user_id){
+        var user = await User.findById(req.cookies.user_id);
+        return res.render("updateProfile",{
+            user:user
+        })
+    }
+}
+
+module.exports.updateProfile = async (req, res)=>{
+    try {
+        var user = await User.findById(req.params.id);
+        await User.uploadedAvatar(req, res, async function(err){
+            if(err){
+                console.log("multer error", err)
+                req.flash('error', "Failed to Update");
+            }
+            user.name = req.body.name;
+            user.email = req.body.email;
+            if(req.file){
+                if(user.file){
+                    fs.unlinkSync(path.join(__dirname, '..', user.avatar))
+                }
+                console.log(req.file)
+                user.avatar = User.avatarPath+ '/' + req.file.filename
+            }
+            await user.save();
+            req.flash('success', 'Profile updated successfully');
+            return res.redirect("/user/homepage")
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

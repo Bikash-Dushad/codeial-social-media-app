@@ -19,6 +19,14 @@ header {
 h1 {
     font-size: 24px;
 }
+#update {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none; /* Remove underline by default */
+    color: white;
+}
 
 #user-details{
     width: 30%;
@@ -118,6 +126,8 @@ ul {
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
+    background-color: rgb(94, 201, 201);
+    padding-left: 10px;
 }
 
 .content-n-delete{

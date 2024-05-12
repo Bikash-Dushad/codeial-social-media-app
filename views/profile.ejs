@@ -23,26 +23,15 @@
         </nav>
         <div id="user-details">
             <div id="profile-n-name">
-                <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
-                <h1><%=user.name %></h1>
+                <a id="update" href="/user/updatePage">
+                    <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
+                    <h1><%=user.name %></h1>
+                </a>
                 <!-- <p>Email: <%=user.email %> </p> -->
             </div>
             <a class="logout" href="/user/logout">logout</a>
         </div>
-
     </header>
-
-    <section id="update-user-profile">
-        <form action="/user/update/<%=user.id %>" enctype="multipart/form-data" method="post">
-            <input type="text" placeholder="Enter name" name="name" value="<%=user.name %>">
-            <input type="email" placeholder="Enter email" name="email" value="<%= user.email %>">
-            <input type="file" id="file" name="avatar" placeholder="Profile picture">
-            <input type="submit" value="Update">
-        </form>
-    </section>
-
-    <br>
-    <br>
 <main>
     <section>
         
@@ -116,7 +105,7 @@
                 </li>
             <%}%>
                 
-     </section>
+    </section>
 
                     <aside id="alluser">
                         <h1>All Users</h1>
@@ -143,9 +132,6 @@
             let self = this;
             let toggleLike = new ToggleLike(self);
         });
-
-        const usernames = alluser.map(user => user.name);
-        localStorage.setItem('usernames', JSON.stringify(usernames));
     </script>
 </body>
 

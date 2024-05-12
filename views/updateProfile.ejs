@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/updateProfile.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="update" href="/user/homePage"><h1> profile page</h1></a>
+        </nav>
+        <div id="user-details">
+            <div id="profile-n-name">
+                <img src="<%=user.avatar%>" alt="<%= user.name %>" height="150px" width="200px">
+                <h1><%=user.name %></h1>
+            </div>
+            <a class="logout" href="/user/logout">logout</a>
+        </div>
+
+    </header>
+
+    <main>
+        <section id="update-user-profile">
+            <form action="/user/updateProfile/<%=user.id %>" enctype="multipart/form-data" method="post">
+                <input type="text" placeholder="Enter name" name="name" value="<%=user.name %>">
+                <input type="email" placeholder="Enter email" name="email" value="<%= user.email %>">
+                <input type="file" id="file" name="avatar" placeholder="Profile picture">
+                <input type="submit" value="Update">
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+body {
+    height: auto;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: antiquewhite;
+}
+
+header {
+    background-color: #3f51b5;
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+}
+
+#update {
+    text-decoration: none; /* Remove underline by default */
+    color: white;
+}
+
+#user-details{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#profile-n-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%; /* Make the image round */
+}
+
+p {
+    font-size: 18px;
+}
+
+.logout {
+    color: white;
+    text-decoration: none;
+    background-color: #1a237e;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+    background-color: #263238;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ #update-user-profile {
+    width: 30%;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#update-user-profile input[type="text"],
+#update-user-profile input[type="email"],
+#update-user-profile input[type="file"],
+#update-user-profile input[type="submit"] {
+    /* display: block; */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+
+#update-user-profile input[type="submit"] {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#update-user-profile input[type="submit"]:hover {
+    background-color: #263238;
+}

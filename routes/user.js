@@ -10,7 +10,8 @@ router.get('/signinpage', usercontroller.signinpage)
 router.post('/signin', usercontroller.signin)
 
 router.get('/homepage', usercontroller.homepage);
-router.post('/update/:id', usercontroller.update)
+router.get('/updatePage', usercontroller.updatePage)
+router.post('/updateProfile/:id', usercontroller.updateProfile)
 
 router.get('/logout', usercontroller.logout)
 
