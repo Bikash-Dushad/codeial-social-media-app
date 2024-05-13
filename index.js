@@ -1,7 +1,9 @@
+require('dotenv').config()
 const express = require('express');
+const env = require('./config/environment');
 const app = express();
 const cookieparser = require('cookie-parser')
-const port = 8000;
+const PORT = process.env.PORT || 8000;
 require('./config/mongoose');
 const expresssession = require('express-session')
 const passport = require('passport');
@@ -13,10 +15,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieparser())
 app.set('view engine', 'ejs');
 app.set('views', './views'); 
-app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + env.asset_path));
 app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(expresssession({
-    secret: 'xyz', // Replace with a random string for session encryption
+    secret: env.session_cookie_key, // Replace with a random string for session encryption
     resave: false,
     saveUninitialized: false
   }));
@@ -30,6 +32,6 @@ app.use(custumMiddleware.setFlash);
 
 app.use('/', require('./routes'))
 
-app.listen(port, ()=>{
-    console.log(`Server is running on http://localhost:${port}`)
+app.listen(PORT, ()=>{
+    console.log(`Server is running on http://localhost:${PORT}`)
 })

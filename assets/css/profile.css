@@ -66,6 +66,7 @@ p {
 
 main {
     display: flex;
+    min-height: 87vh;
     /* justify-content: space-around; */
 }
 
