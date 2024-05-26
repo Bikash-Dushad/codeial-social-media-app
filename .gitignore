@@ -1,1 +1,3 @@
 node_modules
+config/passport-local-strategy.js
+uploads/user/AVATAR

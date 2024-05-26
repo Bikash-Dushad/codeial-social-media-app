@@ -1,13 +1,12 @@
-require('dotenv').config()
 const express = require('express');
 const env = require('./config/environment');
 const app = express();
 const cookieparser = require('cookie-parser')
-const PORT = process.env.PORT || 8000;
+const PORT = 8000;
 require('./config/mongoose');
 const expresssession = require('express-session')
-const passport = require('passport');
-const passportLocal = require('./config/passport-local-strategy.js');
+// const passport = require('passport');
+// const passportLocal = require('./config/passport-local-strategy.js');
 const flash = require('connect-flash')
 const custumMiddleware = require('./config/middleware')
 
@@ -18,15 +17,15 @@ app.set('views', './views');
 app.use(express.static(__dirname + env.asset_path));
 app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(expresssession({
-    secret: env.session_cookie_key, // Replace with a random string for session encryption
+    secret: env.session_cookie_key,
     resave: false,
     saveUninitialized: false
   }));
 
-  app.use(passport.initialize());
-app.use(passport.session());
+  // app.use(passport.initialize());
+// app.use(passport.session());
 
-app.use(passport.setAuthenticatedUser);
+// app.use(passport.setAuthenticatedUser);
 app.use(flash())
 app.use(custumMiddleware.setFlash);
 
